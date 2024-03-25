@@ -1,14 +1,26 @@
+# Project Name
 
-                                      
-                                      
-                                      
-                                    
+## 🔥 ALL VARIABLES
+- **BOT_TOKEN**: Get bot token from @BotFather
+- **API_ID**: From my.telegram.org
+- **API_HASH**: From my.telegram.org
+- **AUTH_USERS**: AUTH_USERS UserId.
 
-### Colab
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/.ipyn)
+## 🥰 FEATURES
+- Download & Upload very fast.
+- Custom Thumbnail support.
+- Support custom file resolution.
+- Supports unlimited links in one file.
+- Deploy to Heroku + Railway.
+- Developer Service 24x7. 🔥
 
-## Deploy To Heroku
+## Deployment
+- Deploy To Heroku
 
-<a href="https://heroku.com/deploy?template=https://github.com/Fakebaba2/bros">
-     <img height="30px" src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku">
-  </a>
+## 😍 COMMANDS
+- /start: Check if the bot is running.
+- /help: Check my working mechanism.
+- /cancel: Cancel ongoing processes.
+- /restart: ⚠️ Only for Admins.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/SUHAIB-RASHID-DAR/Bulk-Text-uploader/tree/main)
