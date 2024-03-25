@@ -21,6 +21,7 @@ from subprocess import getstatusoutput
 import logging
 import os
 import sys
+from config import Config
 fro KHABAR.get_video_info import get_video_attributes, get_video_thumb
 import re
 from pyrogram import Client as bot
@@ -29,17 +30,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 os.makedirs("./downloads", exist_ok=True)
-API_ID = 23442389
-API_HASH = "70490ec8a810932cb5cb7f9d6a839ee0"
-BOT_TOKEN = "5977243533:AAH0Fbk_s09xcGi7O_ACJO1dVKrwTbYFWlk"
-AUTH_USERS = 5448647404
-sudo_users = [5448647404]
-bot = Client(
-    "bot",
-    bot_token=BOT_TOKEN,
-    api_id=API_ID,
-    api_hash=API_HASH
-)
+
+bot = Client("bot", bot_token=Config.BOT_TOKEN, api_id=Config.API_ID, api_hash=Config.API_HASH)
 async def exec(cmd):
   proc = await asyncio.create_subprocess_exec(*cmd,
         stdout=asyncio.subprocess.PIPE,
