@@ -1,39 +1,12 @@
-#  MIT License
-#
-#  Copyright (c) 2019-present Dan <https://github.com/delivrance>
-#
-#  Permission is hereby granted, free of charge, to any person obtaining a copy
-#  of this software and associated documentation files (the "Software"), to deal
-#  in the Software without restriction, including without limitation the rights
-#  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-#  copies of the Software, and to permit persons to whom the Software is
-#  furnished to do so, subject to the following conditions:
-#
-#  The above copyright notice and this permission notice shall be included in all
-#  copies or substantial portions of the Software.
-#
-#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-#  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-#  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-#  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-#  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-#  @Edited By Cryptostark 
-
-
 import subprocess
-import datetime
 import asyncio
 import os
 import requests
 import time
-from p_bar import progress_bar
 import aiohttp
-import tgcrypto
 import concurrent.futures
-import subprocess
 from pyrogram.types import Message
-from pyrogram import Client, filters
+from pyrogram import Client
 
 def duration(filename):
     result = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
@@ -42,17 +15,18 @@ def duration(filename):
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT)
     return float(result.stdout)
-    
+
 def exec(cmd):
         process = subprocess.run(cmd, stdout=subprocess.PIPE,stderr=subprocess.PIPE)
         output = process.stdout.decode()
         print(output)
         return output
-        #err = process.stdout.decode()
+
 def pull_run(work, cmds):
     with concurrent.futures.ThreadPoolExecutor(max_workers=work) as executor:
         print("Waiting for tasks to complete")
         fut = executor.map(exec,cmds)
+
 async def aio(url,name):
     k = f'{name}.pdf'
     async with aiohttp.ClientSession() as session:
@@ -63,7 +37,6 @@ async def aio(url,name):
                 await f.close()
     return k
 
-
 async def download(url,name):
     ka = f'{name}.pdf'
     async with aiohttp.ClientSession() as session:
@@ -73,8 +46,6 @@ async def download(url,name):
                 await f.write(await resp.read())
                 await f.close()
     return ka
-
-
 
 def parse_vid_info(info):
     info = info.strip()
@@ -96,7 +67,6 @@ def parse_vid_info(info):
                 pass
     return new_info
 
-
 def vid_info(info):
     info = info.strip()
     info = info.split("\n")
@@ -112,18 +82,10 @@ def vid_info(info):
             try:
                 if "RESOLUTION" not in i[2] and i[2] not in temp and "audio" not in i[2]:
                     temp.append(i[2])
-                    
-                    # temp.update(f'{i[2]}')
-                    # new_info.append((i[2], i[0]))
-                    #  mp4,mkv etc ==== f"({i[1]})" 
-                    
                     new_info.update({f'{i[2]}':f'{i[0]}'})
-
             except:
                 pass
     return new_info
-
-
 
 async def run(cmd):
     proc = await asyncio.create_subprocess_shell(
@@ -141,9 +103,6 @@ async def run(cmd):
     if stderr:
         return f'[stderr]\n{stderr.decode()}'
 
-    
-    
-    
 def old_download(url, file_name, chunk_size = 1024 * 10):
     if os.path.exists(file_name):
         os.remove(file_name)
@@ -154,14 +113,12 @@ def old_download(url, file_name, chunk_size = 1024 * 10):
                 fd.write(chunk)
     return file_name
 
-
 def human_readable_size(size, decimal_places=2):
     for unit in ['B', 'KB', 'MB', 'GB', 'TB', 'PB']:
         if size < 1024.0 or unit == 'PB':
             break
         size /= 1024.0
     return f"{size:.{decimal_places}f} {unit}"
-
 
 def time_name():
     date = datetime.date.today()
@@ -184,7 +141,6 @@ async def download_video(url,cmd, name):
             return f"{name}.mp4"
         elif os.path.isfile(f"{name}.mp4.webm"):
             return f"{name}.mp4.webm"
-
         return name
     except FileNotFoundError as exc:
         return os.path.isfile.splitext[0] + "." + "mp4"
@@ -201,7 +157,6 @@ async def send_doc(bot: Client, m: Message,cc,ka,cc1,prog,count,name):
     time.sleep(3) 
 
 async def send_vid(bot: Client, m: Message,cc,filename,thumb,name,prog):
-    
     subprocess.run(f'ffmpeg -i "{filename}" -ss 00:01:00 -vframes 1 "{filename}.jpg"', shell=True)
     await prog.delete (True)
     reply = await m.reply_text(f"**Uploading ...** - `{name}`")
@@ -214,7 +169,6 @@ async def send_vid(bot: Client, m: Message,cc,filename,thumb,name,prog):
         await m.reply_text(str(e))
 
     dur = int(duration(filename))
-
     start_time = time.time()
 
     try:
@@ -222,7 +176,5 @@ async def send_vid(bot: Client, m: Message,cc,filename,thumb,name,prog):
     except Exception:
         await m.reply_document(filename,caption=cc, progress=progress_bar,progress_args=(reply,start_time))
     os.remove(filename)
-
     os.remove(f"{filename}.jpg")
     await reply.delete (True)
-    
