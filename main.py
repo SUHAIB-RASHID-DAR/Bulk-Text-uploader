@@ -22,7 +22,7 @@ import logging
 import os
 import sys
 from config import Config
-fro KHABAR.get_video_info import get_video_attributes, get_video_thumb
+from KHABAR.get_video_info import get_video_attributes, get_video_thumb
 import re
 from pyrogram import Client as bot
 DEF_FORMAT = "480"
