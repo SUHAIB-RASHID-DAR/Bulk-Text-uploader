@@ -1,5 +1,7 @@
 # Bulk-Text-uploader
+[![Join Telegram](https://img.shields.io/badge/Join-Telegram-2CA5E0?logo=telegram)](https://t.me/Yeh_yaa)
 
+If you face any errors, please DM me on Telegram.
 ## 🔥 ALL VARIABLES
 - **BOT_TOKEN**: Get bot token from @BotFather
 - **API_ID**: From my.telegram.org
