@@ -24,6 +24,8 @@ import sys
 from config import Config
 from KHABAR.get_video_info import get_video_attributes, get_video_thumb
 import re
+from pyrogram.types import (InlineQueryResultArticle, InputTextMessageContent,
+                            InlineKeyboardMarkup, InlineKeyboardButton)
 from pyrogram import Client as bot
 DEF_FORMAT = "480"
 from dotenv import load_dotenv
