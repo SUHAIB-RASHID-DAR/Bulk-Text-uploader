@@ -40,13 +40,63 @@ async def exec(cmd):
   print(stdout.decode())
   return proc.returncode,stderr.decode()
   
-  
-  
-  
-@bot.on_message(filters.command(["start"]))
-async def account_login(bot: Client, m: Message):
- editable = await m.reply_text("**Hi BOSS I'm Alive Send /down download and for classplus send /cpd  for /dhurina for /vision**")
+@bot.on_message(filters.command("start"))
+async def start_command(client, message):
+    # Reply with a description of what the bot does
+    await message.reply_text(
+        "🤖 Welcome to Media Downloader Bot! 🎥\n\n"
+        "I can help you download media from various platforms. "
+        "Simply send me the text file containing links of the media you want to download, and I'll take care of the rest.",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton("How to Use 📚", callback_data="how_to_use"),
+                    InlineKeyboardButton("Supported Platforms 🌐", callback_data="supported_platforms"),
+                ],
+                [
+                    InlineKeyboardButton("About ℹ️", callback_data="about"),
+                    InlineKeyboardButton("Feedback 📝", callback_data="feedback"),
+                ],
+            ]
+        )
+    )
 
+@bot.on_callback_query()
+async def callback_handler(client, query):
+    
+    if query.data == "how_to_use":
+        await query.answer("📚 How to Use 📚")
+        await query.message.reply_text(
+            "Here's how to use the bot:\n\n"
+            "1. Send me the text file containing links of the media you want to download.\n"
+            "2. Wait for me to process the link and provide you with the download options.\n"
+            "3. Select the desired download option and enjoy your media!",
+            parse_mode="markdown"
+        )
+    elif query.data == "supported_platforms":
+        await query.answer("🌐 Supported Platforms 🌐")
+        await query.message.reply_text(
+            "These are the supported platforms:\n\n"
+            "- YouTube\n"
+            "- Classplus\n"
+            "- Instagram\n"
+            "- Visionias\n"
+            "- Adda24x7\n"
+            "- And more!"
+        )
+    elif query.data == "about":
+        await query.answer("ℹ️ About ℹ️")
+        await query.message.reply_text(
+            "This bot was created to make downloading media from various platforms easier and more convenient. "
+            "If you have any questions or suggestions, feel free to reach out!"
+        )
+    elif query.data == "feedback":
+        await query.answer("📝 Feedback 📝")
+        await query.message.reply_text(
+            "Please leave your feedback by contacting @Yeh_yaa. Your input helps us improve the bot and provide a better experience for all users."
+        )
+
+  
 @bot.on_message(filters.command(["down"]))
 async def account_login(bot: Client, m: Message):
     global cancel
