@@ -42,7 +42,6 @@ async def exec(cmd):
   
 @bot.on_message(filters.command("start"))
 async def start_command(client, message):
-    # Reply with a description of what the bot does
     await message.reply_text(
         "🤖 Welcome to Media Downloader Bot! 🎥\n\n"
         "I can help you download media from various platforms. "
@@ -79,7 +78,7 @@ async def callback_handler(client, query):
             "These are the supported platforms:\n\n"
             "- YouTube\n"
             "- Classplus\n"
-            "- Instagram\n"
+            "- Pw\n"
             "- Visionias\n"
             "- Adda24x7\n"
             "- And more!"
